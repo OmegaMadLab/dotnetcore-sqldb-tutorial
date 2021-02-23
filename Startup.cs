@@ -35,6 +35,15 @@ namespace DotNetCoreSqlDb
                     options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
         }
 
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, MyDbContext context)
+    {
+        if (env.IsDevelopment())
+        {
+            //context.Database.EnsureCreated();
+            context.Database.Migrate();
+        }
+    }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
